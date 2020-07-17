@@ -43,10 +43,10 @@ window.addEventListener('resize', () => {
 	imageCanvas.height = document.documentElement.clientHeight;
 
 	//Re calculate position and velocity
-	if (position[0] + img.width >= canvas.width || position[0] - img.width < 0) {
+	if (position[0] + img.width / 2 >= canvas.width || position[0] - img.width / 2 < 0) {
 		position = [ canvas.width / 2, canvas.height / 2 ];
 	}
-	if (position[1] + img.height >= canvas.height || position[1] - img.height < 0) {
+	if (position[1] + img.height / 2 >= canvas.height || position[1] - img.height / 2 < 0) {
 		position = [ canvas.width / 2, canvas.height / 2 ];
 	}
 	velocity = [ canvas.width / 3000, canvas.width / 3000 ];
