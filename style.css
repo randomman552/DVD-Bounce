@@ -5,7 +5,7 @@ body {
 	padding: 0;
 }
 
-img {
+.hidden {
 	position: absolute;
 	top: 0;
 	left: 0;

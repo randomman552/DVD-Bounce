@@ -1,25 +1,46 @@
-//Get canvas element and draw context for later use
+//Main canvas used to draw final display
 const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext('2d');
+const mainctx = canvas.getContext('2d');
+
+//Secondary canvas used to draw the image and add color filters
+const imageCanvas = document.getElementById('image-canvas');
+const imagectx = imageCanvas.getContext('2d');
+var imageFilter = 'invert(1)';
+
+//Get image from DOM
 const img = document.getElementById('image');
 
+/*
+* The reason we use two canvas is so that we can apply filters 
+to the image separately from the main display
+* This does mean that this code will not work in browsers that do not support canvas filtering
+More details here: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
+*/
 var velocity = [ 1, 1 ];
 var position = [ 0, 0 ];
 
 //Set up window resize event so that canvas matches screen size
 window.addEventListener('resize', () => {
+	//Update both canvas size
 	canvas.width = document.documentElement.clientWidth;
 	canvas.height = document.documentElement.clientHeight;
+	imageCanvas.width = document.documentElement.clientWidth;
+	imageCanvas.height = document.documentElement.clientHeight;
 	position = [ canvas.width / 2, canvas.height / 2 ];
 });
 window.dispatchEvent(new Event('resize'));
 
 function drawFrame() {
-	ctx.beginPath();
-	ctx.rect(0, 0, canvas.width, canvas.height);
-	ctx.fillStyle = 'white';
-	ctx.fill();
-	ctx.drawImage(img, position[0] - img.width / 2, position[1] - img.height / 2, img.width, img.height);
+	//Draw image on image context first
+	imagectx.clearRect(0, 0, canvas.width, canvas.height);
+	imagectx.filter = imageFilter;
+	imagectx.drawImage(img, position[0] - img.width / 2, position[1] - img.height / 2, img.width, img.height);
+
+	//Draw image from the first canvas onto the second
+	mainctx.beginPath();
+	mainctx.fillStyle = 'black';
+	mainctx.fillRect(0, 0, canvas.width, canvas.height);
+	mainctx.drawImage(imageCanvas, 0, 0);
 }
 
 function fixedUpdate() {
