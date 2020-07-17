@@ -31,7 +31,7 @@ to the image separately from the main display
 * Due to our use of filters, a browser without filter support will just see a black screen.
 More details here: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D/filter
 */
-var velocity = [ 1, 1 ];
+var velocity = [ canvas.width / 3000, canvas.width / 3000 ];
 var position = [ 0, 0 ];
 
 //Set up window resize event so that canvas size matches screen size
@@ -41,7 +41,18 @@ window.addEventListener('resize', () => {
 	canvas.height = document.documentElement.clientHeight;
 	imageCanvas.width = document.documentElement.clientWidth;
 	imageCanvas.height = document.documentElement.clientHeight;
-	position = [ canvas.width / 2, canvas.height / 2 ];
+
+	//Re calculate position and velocity
+	if (position[0] + img.width >= canvas.width || position[0] - img.width < 0) {
+		position = [ canvas.width / 2, canvas.height / 2 ];
+	}
+	if (position[1] + img.height >= canvas.height || position[1] - img.height < 0) {
+		position = [ canvas.width / 2, canvas.height / 2 ];
+	}
+	velocity = [ canvas.width / 3000, canvas.width / 3000 ];
+
+	//Redraw the current frame
+	drawFrame();
 });
 window.dispatchEvent(new Event('resize'));
 
