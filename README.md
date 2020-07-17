@@ -1,8 +1,8 @@
-#DVD-Bounce
+# DVD-Bounce
 It's the bouncing DVD logo...
 What more could you ask for?
 
-##Compatibility
+## Compatibility
 Works With:
 - Chrome
 - Firefox
