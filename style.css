@@ -3,16 +3,30 @@ body {
 	width: 100%;
 	margin: 0;
 	padding: 0;
+	background-color: black;
 }
 
-canvas {
+.img-container {
+	position: relative;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#image {
+	position: absolute;
+	display: flex;
+	color: blue;
+}
+
+#image::before {
+	content: "";
 	width: 100%;
 	height: 100%;
-}
-
-.hidden {
-	position: absolute;
-	top: 0;
-	left: 0;
-	opacity: 0;
+	background-color: currentColor;
+	mask-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e7/DVD-Video_Logo.svg);
+	-webkit-mask-image: url(https://upload.wikimedia.org/wikipedia/commons/e/e7/DVD-Video_Logo.svg);
+	mask-size: 100% 100%;
+	-webkit-mask-size: 100% 100%;
 }
