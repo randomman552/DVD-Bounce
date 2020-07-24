@@ -5,7 +5,7 @@ var dimensions = [ document.documentElement.clientWidth, document.documentElemen
 var colors = [ 'red', 'blue', 'orange', 'lime', 'cyan', 'magenta', 'yellow' ];
 var colorIndex = Math.floor(Math.random() * (colors.length - 1) + 1);
 const imgDiv = document.getElementById('image');
-const imgDims = [ Number(imgDiv.style.width.replace('px', '')), Number(imgDiv.style.height.replace('px', '')) ];
+var imgDims = [ Number(imgDiv.style.width.replace('px', '')), Number(imgDiv.style.height.replace('px', '')) ];
 advanceImageFilter();
 
 var velocity = [ dimensions[0] / 3000, dimensions[0] / 3000 ];
@@ -15,7 +15,13 @@ var position = [ dimensions[0] / 2, dimensions[1] / 2 ];
 window.addEventListener('resize', () => {
 	dimensions = [ document.documentElement.clientWidth, document.documentElement.clientHeight ];
 
-	//Re calculate position and velocity
+	//Re-size the image to be appropriate to screen size
+	const newimgWidth = dimensions[0] / 5;
+	imgDiv.style.width = `${newimgWidth}px`;
+	imgDiv.style.height = `${newimgWidth / 1.6}px`;
+	imgDims = [ Number(imgDiv.style.width.replace('px', '')), Number(imgDiv.style.height.replace('px', '')) ];
+
+	//Re-calculate position and velocity
 	if (position[0] + imgDims[0] / 2 >= dimensions[0] || position[0] - imgDims[0] / 2 < 0) {
 		position = [ dimensions[0] / 2, dimensions[1] / 2 ];
 	}
